@@ -18,11 +18,10 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * 
  * @author drau
- *
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Entity
@@ -35,23 +34,48 @@ public final class SubEventEntity {
 	@Column(name = "programmed_event_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	/** the sub event type. */
-	@Column(name = "event_type_id", nullable = false)
-	private long type;
 	/** the sub event name. */
 	@NotNull
 	private String name;
 	/** the list of random outcomes to this event. */
-    @OneToMany(targetEntity = RandomOutcomeEntity.class,
-    		fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
-    @JoinTable(name = "programmed_event_random_event_outcome",
-    schema = "dwarfstar_barbarian_prince", 
-    joinColumns = @JoinColumn(name = "programmed_event_id",
-    referencedColumnName = "programmed_event_id"),
-    inverseJoinColumns = @JoinColumn(name = "random_event_outcome_id", 
-    referencedColumnName = "random_event_outcome_id")) 
+	@OneToMany(targetEntity = RandomOutcomeEntity.class,
+			fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "programmed_event_random_event_outcome",
+	schema = "dwarfstar_barbarian_prince",
+	joinColumns = @JoinColumn(name = "programmed_event_id",
+	referencedColumnName = "programmed_event_id"),
+	inverseJoinColumns = @JoinColumn(name = "random_event_outcome_id",
+	referencedColumnName = "random_event_outcome_id"))
 	private List<RandomOutcomeEntity> outcomes;
+	/** the list of turn phases to this event. */
+	@OneToMany(targetEntity = EventOptionEntity.class,
+			fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "programmed_event_option_lookup",
+	schema = "dwarfstar_barbarian_prince",
+	joinColumns = @JoinColumn(name = "programmed_event_id",
+	referencedColumnName = "programmed_event_id"),
+	inverseJoinColumns = @JoinColumn(name = "programmed_event_option_id",
+	referencedColumnName = "programmed_event_option_id"))
+	@JsonProperty("event_options")
+	private List<EventOptionEntity> eventOptions;
+	/** the list of turn phases to this event. */
+	@OneToMany(targetEntity = TurnPhaseEntity.class,
+			fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "programmed_event_turn_phase_lookup",
+	schema = "dwarfstar_barbarian_prince",
+	joinColumns = @JoinColumn(name = "programmed_event_id",
+	referencedColumnName = "programmed_event_id"),
+	inverseJoinColumns = @JoinColumn(name = "turn_phase_id",
+	referencedColumnName = "turn_phase_id"))
+	@JsonProperty("turn_phase")
+	private List<TurnPhaseEntity> turnPhases;
+	/** the sub event type. */
+	@Column(name = "event_type_id", nullable = false)
+	private long type;
+
 	// Public methods
 	/** Creates a new instance of {@link SubEventEntity}. */
 	public SubEventEntity() {
@@ -61,11 +85,24 @@ public final class SubEventEntity {
 	 * Creates a new instance of {@link SubEventEntity}.
 	 * @param n the name
 	 * @param t the type
-	 * +
 	 */
 	public SubEventEntity(final String n, final long t) {
 		name = n;
 		type = t;
+	}
+	/**
+	 * Gets the list of event options.
+	 * @return {@link List}<{@link EventOptionEntity}>
+	 */
+	public List<EventOptionEntity> getEventOptions() {
+		return eventOptions;
+	}
+	/**
+	 * Gets the list of random outcomes.
+	 * @return {@link List}<{@link RandomOutcomeEntity}>
+	 */
+	public List<RandomOutcomeEntity> getEventRolls() {
+		return outcomes;
 	}
 	/**
 	 * Gets the id.
@@ -82,11 +119,11 @@ public final class SubEventEntity {
 		return name;
 	}
 	/**
-	 * Gets the list of random outcomes.
-	 * @return {@link List}<{@link RandomOutcomeEntity}>
+	 * Gets the list of turn phases where the event can occur.
+	 * @return {@link List}<{@link TurnPhaseEntity}>
 	 */
-	public List<RandomOutcomeEntity> getEventRolls() {
-		return outcomes;
+	public List<TurnPhaseEntity> getTurnPhases() {
+		return turnPhases;
 	}
 	/**
 	 * Gets the type.
@@ -94,6 +131,13 @@ public final class SubEventEntity {
 	 */
 	public long getType() {
 		return type;
+	}
+	/**
+	 * Sets the list of event options.
+	 * @param list the list to set
+	 */
+	public void setEventOptions(final List<EventOptionEntity> list) {
+		eventOptions = list;
 	}
 	/**
 	 * Sets the id.
@@ -117,10 +161,17 @@ public final class SubEventEntity {
 		outcomes = list;
 	}
 	/**
+	 * Sets the list of turn phases.
+	 * @param list the list to set
+	 */
+	public void setTurnPhases(final List<TurnPhaseEntity> list) {
+		turnPhases = list;
+	}
+	/**
 	 * Sets the type.
 	 * @param val the new value
 	 */
 	public void setType(final long val) {
-		this.id = val;
+		id = val;
 	}
 }
