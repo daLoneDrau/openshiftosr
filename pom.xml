@@ -64,7 +64,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>controllers.Application</start-class>
+		<start-class>com.osrapi.application</start-class>
 	</properties>
 
 	<repositories>

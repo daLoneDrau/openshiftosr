@@ -1,11 +1,8 @@
 package com.osrapi.repositories;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.osrapi.models.BPCharacterEntity;
 import com.osrapi.models.HexRiverCrossingEntity;
 
 /**
@@ -17,8 +14,9 @@ import com.osrapi.models.HexRiverCrossingEntity;
 public interface HexRiverCrossingRepository 
 extends CrudRepository<HexRiverCrossingEntity, Long> {
 	/**
-	 * Retrieves a list of river crossings by their name.
-	 * @param name the name
+	 * Retrieves a list of river crossings by their crossing points.
+	 * @param from the hex coming from
+	 * @param to the hex going to
 	 * @return {@link HexRiverCrossingEntity}
 	 */
 	HexRiverCrossingEntity findByToAndFrom(long from, long to);
