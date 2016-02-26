@@ -44,18 +44,17 @@ public final class ConditionEntity {
 	inverseJoinColumns = @JoinColumn(name = "hex_location_id",
 	referencedColumnName = "hex_location_id"))
 	private List<HexLocationEntity> locations;
-	/**
-	 * @return the locations
-	 */
-	public List<HexLocationEntity> getLocations() {
-		return locations;
-	}
-	/**
-	 * @param locations the locations to set
-	 */
-	public void setLocations(List<HexLocationEntity> locations) {
-		this.locations = locations;
-	}
+	/** the list of rolls for this condition. */
+	@OneToMany(targetEntity = RollEntity.class,
+			fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "condition_roll_lookup",
+	schema = "dwarfstar_barbarian_prince",
+	joinColumns = @JoinColumn(name = "condition_id",
+	referencedColumnName = "condition_id"),
+	inverseJoinColumns = @JoinColumn(name = "roll_id",
+	referencedColumnName = "roll_id"))
+	private List<RollEntity> rolls;
 	/** the sub event name. */
 	@NotNull
 	private String name;
@@ -85,11 +84,25 @@ public final class ConditionEntity {
 		return id;
 	}
 	/**
+	 * Gets the list of locations tied to this condition.
+	 * @return {@link List}<{@link HexLocationEntity}>
+	 */
+	public List<HexLocationEntity> getLocations() {
+		return locations;
+	}
+	/**
 	 * Gets the name.
 	 * @return {@link String}
 	 */
 	public String getName() {
 		return name;
+	}
+	/**
+	 * Gets the list of rolls.
+	 * @return {@link List}<{@link RollEntity}>
+	 */
+	public List<RollEntity> getRolls() {
+		return rolls;
 	}
 	/**
 	 * Gets the type.
@@ -106,6 +119,13 @@ public final class ConditionEntity {
 		id = val;
 	}
 	/**
+	 * Sets the list of locations tied to this entity.
+	 * @param list the locations to set
+	 */
+	public void setLocations(final List<HexLocationEntity> list) {
+		locations = list;
+	}
+	/**
 	 * Sets the name.
 	 * @param val the new value
 	 */
@@ -113,10 +133,17 @@ public final class ConditionEntity {
 		name = val;
 	}
 	/**
+	 * Sets the list of rolls.
+	 * @param list the new value
+	 */
+	public void setRolls(final List<RollEntity> list) {
+		rolls = list;
+	}
+	/**
 	 * Sets the type.
 	 * @param val the new value
 	 */
 	public void setType(final long val) {
-		id = val;
+		type = val;
 	}
 }
