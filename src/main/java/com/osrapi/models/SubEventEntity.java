@@ -27,6 +27,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "programmed_event", schema = "dwarfstar_barbarian_prince")
 public final class SubEventEntity {
+	/** the list of characters spawned by this event. */
+	@OneToMany(targetEntity = BPCharacterEntity.class,
+			fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
+	@JoinTable(name = "programmed_event_character_spawn_lookup",
+	schema = "dwarfstar_barbarian_prince",
+	joinColumns = @JoinColumn(name = "programmed_event_id",
+	referencedColumnName = "programmed_event_id"),
+	inverseJoinColumns = @JoinColumn(name = "bp_character_id",
+	referencedColumnName = "bp_character_id"))
+	private List<BPCharacterEntity> characters;
 	/** the list of conditions to this event. */
 	@OneToMany(targetEntity = ConditionEntity.class,
 			fetch = FetchType.EAGER)
@@ -102,6 +113,13 @@ public final class SubEventEntity {
 		type = t;
 	}
 	/**
+	 * Gets the list of characters spawned.
+	 * @return {@link List}<{@link BPCharacterEntity}>
+	 */
+	public List<BPCharacterEntity> getCharacters() {
+		return characters;
+	}
+	/**
 	 * Gets the list of conditions.
 	 * @return {@link List}<{@link ConditionEntity}>
 	 */
@@ -149,6 +167,13 @@ public final class SubEventEntity {
 	 */
 	public long getType() {
 		return type;
+	}
+	/**
+	 * Sets the list of characters spawned.
+	 * @param list the list to set
+	 */
+	public void setCharacters(final List<BPCharacterEntity> list) {
+		characters = list;
 	}
 	/**
 	 * Sets the list of conditions.
