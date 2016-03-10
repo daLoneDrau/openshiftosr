@@ -27,7 +27,7 @@ public final class ConditionController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/conditions", method = RequestMethod.GET)
-	public Object getConditions() {
+	public Object getAll() {
 		Iterable<ConditionEntity> iter = repository.findAll();
 		ArrayList<ConditionEntity> list = new ArrayList<ConditionEntity>();
 		Iterator<ConditionEntity> iterator = iter.iterator();
@@ -42,7 +42,7 @@ public final class ConditionController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/conditions/{id}", method = RequestMethod.GET)
-	public Object getCondition(@PathVariable final Long id) {
+	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
 	}
 }

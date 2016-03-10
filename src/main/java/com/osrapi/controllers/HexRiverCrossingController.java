@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.osrapi.models.HexRiverCrossingEntity;
-import com.osrapi.models.TreasureTableEntity;
 import com.osrapi.repositories.HexRiverCrossingRepository;
 
 /**
@@ -29,7 +28,7 @@ public final class HexRiverCrossingController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/river_crossings", method = RequestMethod.GET)
-	public Object getRiverCrossings() {
+	public Object getAll() {
 		Iterable<HexRiverCrossingEntity> iter = repository.findAll();
 		ArrayList<HexRiverCrossingEntity> list = 
 				new ArrayList<HexRiverCrossingEntity>();
@@ -45,21 +44,22 @@ public final class HexRiverCrossingController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/river_crossings/{id}", method = RequestMethod.GET)
-	public Object getEvent(@PathVariable final Long id) {
+	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
 	}
 	/**
-	 * Gets a single {@link TreasureTableEntity}.
-	 * @param wealth the wealth code
-	 * @param roll the die roll
+	 * Gets a single {@link HexRiverCrossingEntity} by its starting point and
+	 * destination.
+	 * @param to the starting point
+	 * @param from the destination
 	 * @return {@link Object}
 	 */
-	@RequestMapping(path = "/river_crossings/to_from", method = RequestMethod.GET)
-	public Object getEvent(@RequestParam(value = "to") final long to,
+	@RequestMapping(path = "/river_crossings/to_from",
+			method = RequestMethod.GET)
+	public Object getByToAndFrom(@RequestParam(value = "to") final long to,
 			@RequestParam(value = "from") final long from) {
 		Object o = repository.findByToAndFrom(from, to);
 		if (o == null) {
-			System.out.println("do 2nd try");
 			o = repository.findByToAndFrom(to, from);
 		}
 		return o;

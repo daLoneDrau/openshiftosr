@@ -27,7 +27,7 @@ public final class EventTypeController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/event_types", method = RequestMethod.GET)
-	public Object getEvents() {
+	public Object getAll() {
 		Iterable<EventTypeEntity> iter = repository.findAll();
 		ArrayList<EventTypeEntity> list = new ArrayList<EventTypeEntity>();
 		Iterator<EventTypeEntity> iterator = iter.iterator();
@@ -42,7 +42,7 @@ public final class EventTypeController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/event_types/{id}", method = RequestMethod.GET)
-	public Object getEvent(@PathVariable final Long id) {
+	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
 	}
 }
