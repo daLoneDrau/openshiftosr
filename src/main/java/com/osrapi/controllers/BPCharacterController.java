@@ -27,7 +27,7 @@ public final class BPCharacterController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/characters", method = RequestMethod.GET)
-	public Object getEvents() {
+	public Object getAll() {
 		Iterable<BPCharacterEntity> iter = repository.findAll();
 		ArrayList<BPCharacterEntity> list = new ArrayList<BPCharacterEntity>();
 		Iterator<BPCharacterEntity> iterator = iter.iterator();
@@ -42,7 +42,7 @@ public final class BPCharacterController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/characters/{id}", method = RequestMethod.GET)
-	public Object getEvent(@PathVariable final Long id) {
+	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
 	}
 	/**
@@ -50,8 +50,9 @@ public final class BPCharacterController {
 	 * @param name the character's name
 	 * @return {@link Object}
 	 */
-	@RequestMapping(path = "/characters/name/{name}", method = RequestMethod.GET)
-	public Object getEvent(@PathVariable final String name) {
+	@RequestMapping(path = "/characters/name/{name}",
+			method = RequestMethod.GET)
+	public Object getByName(@PathVariable final String name) {
 		return repository.findByName(name);
 	}
 }

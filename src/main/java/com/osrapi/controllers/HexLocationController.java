@@ -27,7 +27,7 @@ public final class HexLocationController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/hexes", method = RequestMethod.GET)
-	public Object getEvents() {
+	public Object getByAll() {
 		Iterable<HexLocationEntity> iter = repository.findAll();
 		ArrayList<HexLocationEntity> list = new ArrayList<HexLocationEntity>();
 		Iterator<HexLocationEntity> iterator = iter.iterator();
@@ -42,7 +42,7 @@ public final class HexLocationController {
 	 * @return {@link Object}
 	 */
 	@RequestMapping(path = "/hexes/{id}", method = RequestMethod.GET)
-	public Object getEvent(@PathVariable final Long id) {
+	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
 	}
 }
