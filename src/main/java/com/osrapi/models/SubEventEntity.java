@@ -71,18 +71,6 @@ public final class SubEventEntity {
 	referencedColumnName = "random_event_outcome_id"))
 	private List<RandomOutcomeEntity> outcomes;
 	/** the list of turn phases to this event. */
-	@OneToMany(targetEntity = EventOptionEntity.class,
-			fetch = FetchType.EAGER)
-	@Fetch(FetchMode.SELECT)
-	@JoinTable(name = "programmed_event_option_lookup",
-	schema = "dwarfstar_barbarian_prince",
-	joinColumns = @JoinColumn(name = "programmed_event_id",
-	referencedColumnName = "programmed_event_id"),
-	inverseJoinColumns = @JoinColumn(name = "programmed_event_option_id",
-	referencedColumnName = "programmed_event_option_id"))
-	@JsonProperty("event_options")
-	private List<EventOptionEntity> eventOptions;
-	/** the list of turn phases to this event. */
 	@OneToMany(targetEntity = TurnPhaseEntity.class,
 			fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
@@ -125,13 +113,6 @@ public final class SubEventEntity {
 	 */
 	public List<ConditionEntity> getConditions() {
 		return conditions;
-	}
-	/**
-	 * Gets the list of event options.
-	 * @return {@link List}<{@link EventOptionEntity}>
-	 */
-	public List<EventOptionEntity> getEventOptions() {
-		return eventOptions;
 	}
 	/**
 	 * Gets the list of random outcomes.
@@ -181,13 +162,6 @@ public final class SubEventEntity {
 	 */
 	public void setConditions(final List<ConditionEntity> list) {
 		conditions = list;
-	}
-	/**
-	 * Sets the list of event options.
-	 * @param list the list to set
-	 */
-	public void setEventOptions(final List<EventOptionEntity> list) {
-		eventOptions = list;
 	}
 	/**
 	 * Sets the id.
