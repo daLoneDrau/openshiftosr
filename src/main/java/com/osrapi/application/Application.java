@@ -9,9 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /** extends SpringBootServletInitializer for creating a deployable war file. */
-@ComponentScan(basePackages = "com.osrapi.controllers")
+@ComponentScan(
+		basePackages = "com.osrapi.controllers")
 @EntityScan(basePackages = "com.osrapi.models")
-@EnableJpaRepositories(basePackages = "com.osrapi.repositories")
+@EnableJpaRepositories(
+		basePackages = "com.osrapi.repositories")
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 	/**
