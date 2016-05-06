@@ -62,11 +62,11 @@ public final class SpellEntity {
 	@JsonProperty("st_cost")
 	private Long			stCost;
 	/** the archetype's character type. */
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = SpellTypeEntity.class,
+	@OneToOne(cascade = CascadeType.ALL, targetEntity = TFTSkillTypeEntity.class,
 			fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
 	@JoinColumn(name = "spell_type_id", referencedColumnName = "spell_type_id")
-	private SpellTypeEntity	type;
+	private TFTSkillTypeEntity	type;
 	// Public methods
 	/** Creates a new instance of {@link SpellEntity}. */
 	public SpellEntity() {
@@ -130,9 +130,9 @@ public final class SpellEntity {
 	}
 	/**
 	 * Gets the type.
-	 * @return {@link SpellTypeEntity}
+	 * @return {@link TFTSkillTypeEntity}
 	 */
-	public SpellTypeEntity getType() {
+	public TFTSkillTypeEntity getType() {
 		return type;
 	}
 	/**
@@ -195,7 +195,7 @@ public final class SpellEntity {
 	 * Sets the type.
 	 * @param val the new value
 	 */
-	public void setType(final SpellTypeEntity val) {
+	public void setType(final TFTSkillTypeEntity val) {
 		type = val;
 	}
 }
