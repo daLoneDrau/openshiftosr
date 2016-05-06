@@ -1,4 +1,4 @@
-package com.osrapi.controllers.thefantasytrip;
+package com.osrapi.controllers.wfrp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.osrapi.models.thefantasytrip.TFTSkillTypeEntity;
-import com.osrapi.repositories.thefantasytrip.SpellTypeRepository;
+import com.osrapi.models.wfrp.WFRPSkillTypeEntity;
+import com.osrapi.repositories.wfrp.SkillTypeRepository;
 
 /**
  * 
@@ -18,32 +18,32 @@ import com.osrapi.repositories.thefantasytrip.SpellTypeRepository;
  *
  */
 @RestController
-public final class SpellTypeController {
+public final class SkillTypeController {
 	/** the data repository. */
 	@Autowired
-	private SpellTypeRepository repository;
+	private SkillTypeRepository repository;
 	/**
-	 * Gets a list of {@link TFTSkillTypeEntity}s.
+	 * Gets a list of {@link WFRPSkillTypeEntity}s.
 	 * @return {@link Object}
 	 */
-	@RequestMapping(path = "/the_fantasy_trip/spell_types",
+	@RequestMapping(path = "/wfrp/skill_types",
 			method = RequestMethod.GET)
 	public Object getAll() {
-		Iterable<TFTSkillTypeEntity> iter = repository.findAll();
-		ArrayList<TFTSkillTypeEntity> list =
-				new ArrayList<TFTSkillTypeEntity>();
-		Iterator<TFTSkillTypeEntity> iterator = iter.iterator();
+		Iterable<WFRPSkillTypeEntity> iter = repository.findAll();
+		ArrayList<WFRPSkillTypeEntity> list =
+				new ArrayList<WFRPSkillTypeEntity>();
+		Iterator<WFRPSkillTypeEntity> iterator = iter.iterator();
 		while (iterator.hasNext()) {
 			list.add(iterator.next());
 		}
 		return list;
 	}
 	/**
-	 * Gets a single {@link TFTSkillTypeEntity}.
+	 * Gets a single {@link WFRPSkillTypeEntity}.
 	 * @param id the event type's id
 	 * @return {@link Object}
 	 */
-	@RequestMapping(path = "/the_fantasy_trip/spell_types/{id}",
+	@RequestMapping(path = "/wfrp/skill_types/{id}",
 			method = RequestMethod.GET)
 	public Object getById(@PathVariable final Long id) {
 		return repository.findOne(id);
